@@ -15,6 +15,22 @@ macro_rules! vvi {
     };
 }
 
+/// HashMap<_,_> init
+#[macro_export]
+macro_rules! hmi {
+    ($i:tt, $a:ty, $b:ty) => {
+        let mut $i: HashMap<$a, $b> = HashMap::new();
+    };
+}
+
+/// HashMap<_,_> type
+#[macro_export]
+macro_rules! hmt {
+    ($a:ty, $b:ty) => {
+        HashMap<$a, $b>
+    };
+}
+
 ///  Vec<Vec<_>>  type
 #[macro_export]
 macro_rules! vvt {
@@ -33,7 +49,6 @@ macro_rules! vt {
 
 /// for enumerate
 #[macro_export]
-
 macro_rules! for_enum {
     ($ind:ident, $elem:ident, $collection:expr, $body:block) => {
         for ($ind, $elem) in $collection.iter().enumerate() {
