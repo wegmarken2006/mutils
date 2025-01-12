@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-mutils = {path = "../../mutils"}
+#mutils = {path = "../../mutils"}
+mutils = {git = "https://github.com/wegmarken2006/mutils"}
