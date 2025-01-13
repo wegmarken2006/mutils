@@ -57,3 +57,12 @@ macro_rules! for_enum {
     };
 }
 
+/// read lines from file
+#[macro_export]
+macro_rules! flines {
+    ($fn:tt, $lines:tt) => {
+        let f = File::open($fn).expect(&format!("File {} not found", $fn));
+        let file = BufReader::new(&f);
+        let $lines = file.lines();
+    };
+}
