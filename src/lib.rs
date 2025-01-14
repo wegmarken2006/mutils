@@ -7,7 +7,7 @@ macro_rules! vi {
     };
 }
 
-/// Mutable Vec<Vec<_>> init
+/// Mutable Vec<Vec<_>> init.
 #[macro_export]
 macro_rules! vvi {
     ($i:tt, $e:ty) => {
@@ -15,11 +15,29 @@ macro_rules! vvi {
     };
 }
 
-/// HashMap<_,_> init
+/// HashMap<_,_> init.
+/// Example:
+/// ```
+///    hmi!(map1, &str, i32);
+/// ```
 #[macro_export]
 macro_rules! hmi {
     ($i:tt, $a:ty, $b:ty) => {
         let mut $i: HashMap<$a, $b> = HashMap::new();
+    };
+}
+
+/// HasMap set.
+/// Example:
+/// ```
+///    hmi!(map1, &str, i32);
+///    hms!(hm, "key1", 10);
+/// ```
+#[macro_export]
+macro_rules! hms {
+    ($i:tt, $key:tt, $val:tt) => {
+        let hh = $i.entry($key).or_default();
+        *hh = $val;
     };
 }
 
@@ -47,7 +65,7 @@ macro_rules! vt {
     };
 }
 
-/// For enumerate
+/// For enumerate.
 /// Example:
 /// ```
 ///    for_enum!(ind, elem, vector, {
@@ -73,7 +91,7 @@ macro_rules! flines {
     };
 }
 
-/// File walk
+/// File walk.
 /// Example:
 /// ```
 ///    fwalk!("/", "xml", file_path, {
