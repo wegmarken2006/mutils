@@ -48,6 +48,7 @@ macro_rules! vt {
 }
 
 /// For enumerate
+/// Example:
 /// ```
 ///    for_enum!(ind, elem, vector, {
 ///        println!("{} {}", ind, elem);
@@ -73,6 +74,7 @@ macro_rules! flines {
 }
 
 /// File walk
+/// Example:
 /// ```
 ///    fwalk!("/", "xml", file_path, {
 ///        println!("{}", file_path);
