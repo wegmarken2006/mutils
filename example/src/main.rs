@@ -27,6 +27,10 @@ fn main() {
         *count += 1;
     }
     prhm(&words);
+
+    fwalk!("/", "xml", file_path, {
+        println!("{}", file_path);
+    });
 }
 
 fn prvec(v: &vvt!(i32)) {
