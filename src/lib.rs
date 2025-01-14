@@ -47,7 +47,12 @@ macro_rules! vt {
     };
 }
 
-/// for enumerate
+/// For enumerate
+/// ```
+///    for_enum!(ind, elem, vector, {
+///        println!("{} {}", ind, elem);
+///    });
+/// ```
 #[macro_export]
 macro_rules! for_enum {
     ($ind:ident, $elem:ident, $collection:expr, $body:block) => {
@@ -57,7 +62,7 @@ macro_rules! for_enum {
     };
 }
 
-/// read lines from file
+/// Read lines from file
 #[macro_export]
 macro_rules! flines {
     ($fn:tt, $lines:tt) => {
@@ -67,7 +72,13 @@ macro_rules! flines {
     };
 }
 
-/// file walk
+/// File walk
+/// ```
+///    fwalk!("/", "xml", file_path, {
+///        println!("{}", file_path);
+///    });
+/// ```
+
 #[macro_export]
 macro_rules! fwalk {
     ($sdir:tt, $ext:tt, $fpath:tt, $block:expr) => {
