@@ -66,3 +66,29 @@ macro_rules! flines {
         let $lines = file.lines();
     };
 }
+
+/// file walk
+#[macro_export]
+macro_rules! fwalk {
+    ($sdir:tt, $ext:tt, $fpath:tt, $block:expr) => {
+        let root_path = Path::new($sdir);
+        if root_path.is_dir() {
+            match fs::read_dir(root_path) {
+                Ok(dirs) => {
+                    for entry in dirs {
+                        let entry = entry.unwrap();
+                        let path = entry.path();
+                        if path.is_dir() {
+                            all_files(path.to_str().unwrap(), $ext);
+                        } else if path.extension().unwrap_or_default() == $ext || $ext == "*" {
+                            let $fpath = format!("{}", path.display());
+                            $block
+                        }
+                    }
+                }
+                Err(_) => println!("No permissions for: {}", root_path.to_str().unwrap()),
+            }
+        }   
+    };
+}
+
