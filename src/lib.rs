@@ -164,3 +164,96 @@ macro_rules! csvread {
     };
 }
 
+/// Unbounded channel init.
+/// Example:
+/// ```
+///    use crossbeam_channel;
+/// 
+///    uchani!(tx1, rx1, i32);
+/// ```
+#[macro_export]
+macro_rules! uchani {
+    ($ser:tt, $rer:tt, $tp:ty) => {
+        let ($ser, $rer): (
+            crossbeam_channel::Sender<$tp>,
+            crossbeam_channel::Receiver<$tp>,
+        ) = crossbeam_channel::unbounded();
+    };
+}
+
+/// Channel receive.
+/// Example:
+/// ```
+///     use crossbeam_channel;
+/// 
+///     uchani!(tx1, rx1, i32);
+///     uchani!(tx2, rx2, &str);
+///     std::thread::spawn(move || {
+///         loop {
+///             chan_rx!(rx1, n, {
+///                println!("Thread 1 {}", n);
+///             });
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             chan_tx!(tx2, "From thread 1");
+///         }
+///     });
+///
+///     std::thread::spawn(move || {
+///         let mut count = 100;
+///         loop {
+///             chan_rx!(rx2, n, {
+///                 println!("Thread 2 {}", n);
+///             });
+///
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             chan_tx!(tx1, count);
+///             count = count + 1;
+///         }
+///     });
+/// ```
+#[macro_export]
+macro_rules! chan_rx {
+    ($rx:tt, $out:tt, $block:expr) => {
+        match $rx.try_recv() {
+            Ok($out) => {$block},
+            Err(_) => (),
+        }
+    };
+}
+
+/// Channel send
+/// Example:
+/// ```
+///     use crossbeam_channel;
+/// 
+///     uchani!(tx1, rx1, i32);
+///     uchani!(tx2, rx2, &str);
+///     std::thread::spawn(move || {
+///         loop {
+///             chan_rx!(rx1, n, {
+///                println!("Thread 1 {}", n);
+///             });
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             chan_tx!(tx2, "From thread 1");
+///         }
+///     });
+///
+///     std::thread::spawn(move || {
+///         let mut count = 100;
+///         loop {
+///             chan_rx!(rx2, n, {
+///                 println!("Thread 2 {}", n);
+///             });
+///
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             chan_tx!(tx1, count);
+///             count = count + 1;
+///         }
+///     });
+/// ```
+#[macro_export]
+macro_rules! chan_tx {
+    ($tx:tt, $out:tt) => {
+        $tx.try_send($out).unwrap();
+    };
+}
