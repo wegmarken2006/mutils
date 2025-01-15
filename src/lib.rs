@@ -105,28 +105,29 @@ macro_rules! flines {
 ///        println!("{}", file_path);
 ///    });
 /// ```
-
 #[macro_export]
 macro_rules! fwalk {
     ($sdir:tt, $ext:tt, $fpath:tt, $block:expr) => {
-        let root_path = Path::new($sdir);
-        if root_path.is_dir() {
-            match fs::read_dir(root_path) {
-                Ok(dirs) => {
-                    for entry in dirs {
-                        let entry = entry.unwrap();
-                        let path = entry.path();
-                        if path.is_dir() {
-                            all_files(path.to_str().unwrap(), $ext);
-                        } else if path.extension().unwrap_or_default() == $ext || $ext == "*" {
-                            let $fpath = format!("{}", path.display());
-                            $block
+        fn all_files(sdir: &str, ext: &str) {
+            let root_path = std::path::Path::new(sdir);
+            if root_path.is_dir() {
+                match std::fs::read_dir(root_path) {
+                    Ok(dirs) => {
+                        for entry in dirs {
+                            let entry = entry.unwrap();
+                            let path = entry.path();
+                            if path.is_dir() {
+                                all_files(path.to_str().unwrap(), ext);
+                            } else if path.extension().unwrap_or_default() == $ext || ext == "*" {
+                                let $fpath = format!("{}", path.display());
+                                $block
+                            }
                         }
                     }
+                    Err(_) => println!("No permissions for: {}", root_path.to_str().unwrap()),
                 }
-                Err(_) => println!("No permissions for: {}", root_path.to_str().unwrap()),
-            }
-        }   
+            }   
+        }
+        all_files($sdir, $ext);
     };
 }
-
