@@ -23,7 +23,7 @@ macro_rules! vvi {
 #[macro_export]
 macro_rules! hmi {
     ($i:tt, $a:ty, $b:ty) => {
-        let mut $i: HashMap<$a, $b> = HashMap::new();
+        let mut $i: std::collections::HashMap<$a, $b> = std::collections::HashMap::new();
     };
 }
 
@@ -45,7 +45,7 @@ macro_rules! hms {
 #[macro_export]
 macro_rules! hmt {
     ($a:ty, $b:ty) => {
-        HashMap<$a, $b>
+        std::collections::HashMap<$a, $b>
     };
 }
 
@@ -81,12 +81,19 @@ macro_rules! for_enum {
     };
 }
 
-/// Read lines from file
+/// Read lines from file.
+/// Example:
+/// ```
+///    use std::io::BufRead;
+///
+///    flines!("Cargo.toml", lines);
+///    println!("{:?}", lines);
+/// ```
 #[macro_export]
 macro_rules! flines {
     ($fn:tt, $lines:tt) => {
-        let f = File::open($fn).expect(&format!("File {} not found", $fn));
-        let file = BufReader::new(&f);
+        let f = std::fs::File::open($fn).expect(&format!("File {} not found", $fn));
+        let file = std::io::BufReader::new(&f);
         let $lines = file.lines();
     };
 }
