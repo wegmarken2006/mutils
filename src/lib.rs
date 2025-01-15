@@ -101,7 +101,7 @@ macro_rules! flines {
 /// File walk.
 /// Example:
 /// ```
-///    fwalk!("/", "xml", file_path, {
+///    fwalk!("./", "toml", file_path, 
 ///        println!("{}", file_path);
 ///    });
 /// ```
