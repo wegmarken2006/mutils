@@ -257,3 +257,74 @@ macro_rules! chan_tx {
         $tx.try_send($out).unwrap();
     };
 }
+
+#[macro_export]
+/// A thread shareable variable.
+/// Example:
+/// ```
+///     use crossbeam_channel;
+///     uchani!(tx1, rx1, i32);
+///     uchani!(tx2, rx2, i32);
+///
+///     let count = 0;
+///     shareable!(count, shareable);
+///
+///     sharei!(shareable, c1);
+///     std::thread::spawn(move || {
+///         loop {
+///             chan_rx!(rx1, n, {
+///                 println!("Thread 1 {}", n);
+///             });
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             shareg!(c1, cc);
+///             cc = cc + 1;
+///             shares!(cc, c1);
+///             chan_tx!(tx2, cc);
+///         }
+///     });
+///
+///     sharei!(shareable, c2);
+///     std::thread::spawn(move || {
+///         loop {
+///             chan_rx!(rx2, n, {
+///                 println!("Thread 2 {}", n);
+///             });
+///             std::thread::sleep(std::time::Duration::from_secs(2));
+///             shareg!(c2, cc);
+///             cc = cc + 10;
+///             shares!(cc, c2);
+///             chan_tx!(tx1, cc);
+///         }
+///     });
+/// ```
+macro_rules! shareable {
+    ($i:tt, $out:tt) => {
+        let sh = std::sync::Arc::new(std::sync::Mutex::new($i));
+        let $out = sh.clone();
+    };
+}
+
+/// Clone a shareable variable.
+#[macro_export]
+macro_rules! sharei {
+    ($i:tt, $out:tt) => {
+        let $out = $i.clone();
+    };
+}
+
+/// Get a mutable shareable variable.
+#[macro_export]
+macro_rules! shareg {
+    ($i:tt, $out:tt) => {
+        let mut $out =  *$i.lock().unwrap();
+    };
+}
+
+/// Set a shareable variable.
+#[macro_export]
+macro_rules! shares {
+    ($i:tt, $out:tt) => {
+        *$out.lock().unwrap() = $i;
+    };
+}
+
