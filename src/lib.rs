@@ -65,6 +65,33 @@ macro_rules! vt {
     };
 }
 
+/// Get char from String
+/// Example:
+/// ```
+///     let mut st = "abc".to_string();
+///     chg!(st, 1, c1);
+///     println!("{}", c1);
+/// ```
+#[macro_export]
+macro_rules! chg {
+    ($i:tt, $n:tt, $out:tt) => {
+        let $out = $i.chars().nth($n).unwrap();
+    };
+}
+
+///Set char in String
+/// Example:
+/// ```
+///     let mut st = "abc".to_string();
+///     chs!(st, 2, "d");
+///     println!("{}", st);
+/// ```
+macro_rules! chs {
+    ($i:tt, $n:tt, $r:tt) => {
+        $i.replace_range($n..$n + 1, $r);
+    };
+}
+
 /// For enumerate.
 /// Example:
 /// ```
