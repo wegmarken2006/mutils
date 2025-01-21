@@ -6,6 +6,7 @@
 
 
 /// Mutable Vec<_> init
+/// Use: vi!(var_name, type);
 #[macro_export]
 macro_rules! vi {
     ($i:tt, $e:ty) => {
@@ -14,6 +15,7 @@ macro_rules! vi {
 }
 
 /// Mutable Vec<Vec<_>> init.
+/// Use: vvi!(var_name, type);
 #[macro_export]
 macro_rules! vvi {
     ($i:tt, $e:ty) => {
@@ -22,6 +24,7 @@ macro_rules! vvi {
 }
 
 /// HashMap<_,_> init.
+/// Use: hmi!(var_name, key_type, val_type);
 /// Example:
 /// ```
 ///    hmi!(map1, &str, i32);
@@ -34,6 +37,7 @@ macro_rules! hmi {
 }
 
 /// HasMap set.
+/// Use: hms!(var_name, key, val);
 /// Example:
 /// ```
 ///    hmi!(map1, &str, i32);
@@ -48,6 +52,7 @@ macro_rules! hms {
 }
 
 /// HashMap<_,_> type
+/// Use: hmt!(key_type, val_type)
 #[macro_export]
 macro_rules! hmt {
     ($a:ty, $b:ty) => {
@@ -55,7 +60,8 @@ macro_rules! hmt {
     };
 }
 
-///  Vec<Vec<_>>  type
+/// Vec<Vec<_>>  type
+/// Use: vvt!(type)
 #[macro_export]
 macro_rules! vvt {
     ($e:ty) => {
@@ -64,6 +70,7 @@ macro_rules! vvt {
 }
 
 /// Vec<_> type
+/// Use: vt!(type)
 #[macro_export]
 macro_rules! vt {
     ($e:ty) => {
@@ -72,6 +79,7 @@ macro_rules! vt {
 }
 
 /// Get char from String
+/// Use: chg!(string_name, position, char_var_name);
 /// Example:
 /// ```
 ///     let mut st = "abc".to_string();
@@ -85,7 +93,8 @@ macro_rules! chg {
     };
 }
 
-///Set char in String
+/// Set char in String
+/// Use: chs!(string_name, position, char_val_as_str);
 /// Example:
 /// ```
 ///     let mut st = "abc".to_string();
@@ -338,6 +347,7 @@ macro_rules! shareable {
 }
 
 /// Clone a shareable variable.
+/// Use: sharei!(shareable_var, cloned_var);
 #[macro_export]
 macro_rules! sharei {
     ($i:tt, $out:tt) => {
@@ -346,6 +356,7 @@ macro_rules! sharei {
 }
 
 /// Get a mutable shareable variable.
+/// Use: shareg!(cloned_var, modifiable_var);
 #[macro_export]
 macro_rules! shareg {
     ($i:tt, $out:tt) => {
@@ -354,6 +365,7 @@ macro_rules! shareg {
 }
 
 /// Set a shareable variable.
+/// Use: shares!(modified_var, cloned_var);
 #[macro_export]
 macro_rules! shares {
     ($i:tt, $out:tt) => {
@@ -362,6 +374,7 @@ macro_rules! shares {
 }
 
 /// Mutable shareable variable type.
+/// Use: sharet!(type)
 #[macro_export]
 macro_rules! sharet {
     ($i:ty) => {
