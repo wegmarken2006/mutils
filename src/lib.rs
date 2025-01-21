@@ -326,7 +326,7 @@ macro_rules! chan_tx {
 ///     let count = 0;
 ///     shareable!(count, shareable);
 ///
-///     sharei!(shareable, c1);
+///     sharec!(shareable, c1);
 ///     std::thread::spawn(move || {
 ///         loop {
 ///             chan_rx!(rx1, n, {
@@ -340,7 +340,7 @@ macro_rules! chan_tx {
 ///         }
 ///     });
 ///
-///     sharei!(shareable, c2);
+///     sharec!(shareable, c2);
 ///     std::thread::spawn(move || {
 ///         loop {
 ///             chan_rx!(rx2, n, {
@@ -363,9 +363,9 @@ macro_rules! shareable {
 
 /// Clone a shareable variable.
 ///
-/// Use: sharei!(shareable_var, cloned_var);
+/// Use: sharec!(shareable_var, cloned_var);
 #[macro_export]
-macro_rules! sharei {
+macro_rules! sharec {
     ($i:tt, $out:tt) => {
         let $out = $i.clone();
     };
