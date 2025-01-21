@@ -1,3 +1,9 @@
+/// [dependencies]
+/// mutils = {git = "https://github.com/wegmarken2006/mutils"}
+/// 
+/// #[macro_use]
+/// extern crate mutils;
+
 
 /// Mutable Vec<_> init
 #[macro_export]
@@ -355,3 +361,10 @@ macro_rules! shares {
     };
 }
 
+/// Mutable shareable variable type.
+#[macro_export]
+macro_rules! sharet {
+    ($i:ty) => {
+        std::sync::Arc<std::sync::Mutex<$i>>
+    };
+}
