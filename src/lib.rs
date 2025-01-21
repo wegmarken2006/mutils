@@ -401,4 +401,25 @@ macro_rules! sharet {
     };
 }
 
+/// Get a mutable shareable variable with clone for not Copy-able vars
+///
+/// Use: sharegc!(cloned_var, modifiable_var);
+/// 
+/// Example:
+/// 
+/// ```
+///     let str1 = "Hello".to_string();
+///     shareable!(str1, sstr1);
+///     sharegc!(sstr1, str2);
+///     str2 = "Hello world".to_string();
+///     shares!(str2, sstr1);
+/// ```
+#[macro_export]
+macro_rules! sharegc {
+    ($i:tt, $out:tt) => {
+        let mut $out =  $i.lock().unwrap().clone();
+    };
+}
+
+
 
