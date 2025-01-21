@@ -1,11 +1,6 @@
-/// [dependencies]
-/// mutils = {git = "https://github.com/wegmarken2006/mutils"}
-/// 
-/// #[macro_use]
-/// extern crate mutils;
-
 
 /// Mutable Vec<_> init
+///
 /// Use: vi!(var_name, type);
 #[macro_export]
 macro_rules! vi {
@@ -15,6 +10,7 @@ macro_rules! vi {
 }
 
 /// Mutable Vec<Vec<_>> init.
+///
 /// Use: vvi!(var_name, type);
 #[macro_export]
 macro_rules! vvi {
@@ -24,7 +20,9 @@ macro_rules! vvi {
 }
 
 /// HashMap<_,_> init.
+///
 /// Use: hmi!(var_name, key_type, val_type);
+///
 /// Example:
 /// ```
 ///    hmi!(map1, &str, i32);
@@ -37,7 +35,9 @@ macro_rules! hmi {
 }
 
 /// HasMap set.
+///
 /// Use: hms!(var_name, key, val);
+///
 /// Example:
 /// ```
 ///    hmi!(map1, &str, i32);
@@ -52,6 +52,7 @@ macro_rules! hms {
 }
 
 /// HashMap<_,_> type
+///
 /// Use: hmt!(key_type, val_type)
 #[macro_export]
 macro_rules! hmt {
@@ -61,6 +62,7 @@ macro_rules! hmt {
 }
 
 /// Vec<Vec<_>>  type
+///
 /// Use: vvt!(type)
 #[macro_export]
 macro_rules! vvt {
@@ -70,6 +72,7 @@ macro_rules! vvt {
 }
 
 /// Vec<_> type
+///
 /// Use: vt!(type)
 #[macro_export]
 macro_rules! vt {
@@ -79,7 +82,9 @@ macro_rules! vt {
 }
 
 /// Get char from String
+///
 /// Use: chg!(string_name, position, char_var_name);
+///
 /// Example:
 /// ```
 ///     let mut st = "abc".to_string();
@@ -94,7 +99,9 @@ macro_rules! chg {
 }
 
 /// Set char in String
+///
 /// Use: chs!(string_name, position, char_val_as_str);
+///
 /// Example:
 /// ```
 ///     let mut st = "abc".to_string();
@@ -108,6 +115,7 @@ macro_rules! chs {
 }
 
 /// For enumerate.
+///
 /// Example:
 /// ```
 ///    for_enum!(ind, elem, vector, {
@@ -124,6 +132,7 @@ macro_rules! for_enum {
 }
 
 /// Read lines from file.
+///
 /// Example:
 /// ```
 ///    use std::io::BufRead;
@@ -141,6 +150,7 @@ macro_rules! flines {
 }
 
 /// File walk.
+///
 /// Example:
 /// ```
 ///    fwalk!("./", "toml", file_path, 
@@ -175,6 +185,7 @@ macro_rules! fwalk {
 }
 
 /// CSV file read.
+///
 /// Example:
 /// ```
 ///    use csv;
@@ -207,6 +218,7 @@ macro_rules! csvread {
 }
 
 /// Unbounded channel init.
+///
 /// Example:
 /// ```
 ///    use crossbeam_channel;
@@ -224,6 +236,7 @@ macro_rules! uchani {
 }
 
 /// Channel receive.
+///
 /// Example:
 /// ```
 ///     use crossbeam_channel;
@@ -264,6 +277,7 @@ macro_rules! chan_rx {
 }
 
 /// Channel send
+///
 /// Example:
 /// ```
 ///     use crossbeam_channel;
@@ -302,6 +316,7 @@ macro_rules! chan_tx {
 
 #[macro_export]
 /// A thread shareable variable.
+///
 /// Example:
 /// ```
 ///     use crossbeam_channel;
@@ -347,6 +362,7 @@ macro_rules! shareable {
 }
 
 /// Clone a shareable variable.
+///
 /// Use: sharei!(shareable_var, cloned_var);
 #[macro_export]
 macro_rules! sharei {
@@ -356,6 +372,7 @@ macro_rules! sharei {
 }
 
 /// Get a mutable shareable variable.
+///
 /// Use: shareg!(cloned_var, modifiable_var);
 #[macro_export]
 macro_rules! shareg {
@@ -365,6 +382,7 @@ macro_rules! shareg {
 }
 
 /// Set a shareable variable.
+///
 /// Use: shares!(modified_var, cloned_var);
 #[macro_export]
 macro_rules! shares {
@@ -374,6 +392,7 @@ macro_rules! shares {
 }
 
 /// Mutable shareable variable type.
+///
 /// Use: sharet!(type)
 #[macro_export]
 macro_rules! sharet {
@@ -381,3 +400,10 @@ macro_rules! sharet {
         std::sync::Arc<std::sync::Mutex<$i>>
     };
 }
+
+/// [dependencies]
+/// mutils = {git = "https://github.com/wegmarken2006/mutils"}
+/// 
+/// #[macro_use]
+/// extern crate mutils;
+
