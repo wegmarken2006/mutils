@@ -401,9 +401,4 @@ macro_rules! sharet {
     };
 }
 
-/// [dependencies]
-/// mutils = {git = "https://github.com/wegmarken2006/mutils"}
-/// 
-/// #[macro_use]
-/// extern crate mutils;
 
