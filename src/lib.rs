@@ -421,5 +421,24 @@ macro_rules! sharegc {
     };
 }
 
+/// Type "Function of 1 argument"
+///
+/// Use: funt!(arg_type)
+#[macro_export]
+macro_rules! funt {
+    ($e:ty) => {
+        impl Fn($e) + std::marker::Send + 'static
+    };
+}
+
+/// Sleep, in seconds
+///
+/// Use: ssleep!(seconds)
+#[macro_export]
+macro_rules! ssleep {
+    ($e:tt) => {
+        std::thread::sleep(std::time::Duration::from_secs($e));
+    };
+}
 
 
