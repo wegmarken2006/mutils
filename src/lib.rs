@@ -184,7 +184,7 @@ macro_rules! fwalk {
     };
 }
 
-/// CSV file read.
+/// CSV file with headers read.
 ///
 /// Example:
 /// ```
@@ -207,7 +207,44 @@ macro_rules! fwalk {
 macro_rules! csvread {
     ($fpath:tt, $del:tt, $rec:tt, $block:expr) => {        
         let mut rdr = csv::ReaderBuilder::new()
+            .has_headers(true)
             .delimiter($del)
+            .flexible(true)
+            .from_path($fpath)
+            .expect("Error reading CSV");
+        for result in rdr.records() {
+            let $rec = result.expect("No record");
+            $block
+        }
+    };
+}
+
+/// CSV file with no headers read.
+///
+/// Example:
+/// ```
+///    use csv;
+/// 
+///    csvread_nh!("example.csv", b',', record, {
+///         let first: i32 = match record[0].parse() {
+///             Ok(st) => st,
+///         Err(_) => 0,
+///         };
+///         let second: String = match record[1].parse() {
+///             Ok(st) => st,
+///             Err(_) => String::from(""),
+///         };
+///    
+///         println!("First: {}, Second: {}", first, second);    
+///    });
+/// ```
+#[macro_export]
+macro_rules! csvread_nh {
+    ($fpath:tt, $del:tt, $rec:tt, $block:expr) => {        
+        let mut rdr = csv::ReaderBuilder::new()
+            .has_headers(false)
+            .delimiter($del)
+            .flexible(true)
             .from_path($fpath)
             .expect("Error reading CSV");
         for result in rdr.records() {
