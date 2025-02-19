@@ -458,13 +458,43 @@ macro_rules! sharegc {
     };
 }
 
-/// Type "Function of 1 argument"
+/// Type "Function of 1 argument, no return"
 ///
 /// Use: funt!(arg_type)
 #[macro_export]
 macro_rules! funt {
     ($e:ty) => {
         impl Fn($e) + std::marker::Send + 'static
+    };
+}
+
+/// Type "Function of 1 argument with return"
+///
+/// Use: funrt!(arg_type, return_type)
+#[macro_export]
+macro_rules! funrt {
+    ($e:ty, $r:ty) => {
+        impl Fn($e) -> $r + std::marker::Send + 'static
+    };
+}
+
+/// Type "Function mutable of 1 argument, no return"
+///
+/// Use: funmt!(arg_type)
+#[macro_export]
+macro_rules! funmt {
+    ($e:ty) => {
+        impl FnMut($e) + std::marker::Send + 'static
+    };
+}
+
+/// Type "Function mutable of 1 argument with return"
+///
+/// Use: funmrt!(arg_type, return_type)
+#[macro_export]
+macro_rules! funmrt {
+    ($e:ty, $r:ty) => {
+        impl FnMut($e) -> $r + std::marker::Send + 'static
     };
 }
 
