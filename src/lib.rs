@@ -508,4 +508,14 @@ macro_rules! ssleep {
     };
 }
 
+/// Sleep, in milliseconds
+///
+/// Use: mssleep!(milliseconds)
+#[macro_export]
+macro_rules! mssleep {
+    ($e:tt) => {
+        std::thread::sleep(std::time::Duration::from_millis($e));
+    };
+}
+
 
