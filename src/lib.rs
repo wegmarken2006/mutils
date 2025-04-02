@@ -518,4 +518,13 @@ macro_rules! mssleep {
     };
 }
 
+/// &str to String
+///
+/// Use: s!("xyz")
+#[macro_export]
+macro_rules! s {
+    ($e:tt) => {
+        $e.to_string();
+    };
+}
 
