@@ -528,3 +528,22 @@ macro_rules! s {
     };
 }
 
+/// Uninitialized Pointer to struct type
+///
+/// Use: ptrt!(struct_name);
+#[macro_export]
+macro_rules! ptrt {
+    ($e:ty) => {
+        Option<Box<$e>>
+    };
+}
+
+/// Pointer to struct initialization
+///
+/// Use: let p = ptri!(struct_var);
+#[macro_export]
+macro_rules! ptri {
+    ($e:tt) => {
+        Some(Box::new($e));
+    };
+}
